@@ -1,13 +1,5 @@
-class Cards:
-	"""Makes 1 card at a time, we probably have to use a loop to make them all, or just use the deck"""
-	def __init__(self,Display_in,PointValue_in,Suit_in):
-		self.DisplayName = Display_in 
-		self.PointValue = PointValue_in 
-		self.Suit = Suit_in 
-		
-
-	def __str__(self):
-		return str(self.DisplayName)
+from Cards import Cards
+import random
 
 class Deck:
 	def __init__(self,NumberOfDecks=1):
@@ -26,20 +18,26 @@ class Deck:
 					Name=str(x)
 				
 				
-				self.cardList.append((Name + " of Hearts", x, "Hearts"))
-				self.cardList.append((Name + " of Diamonds",x,"Diamonds"))
-				self.cardList.append((Name + " of Spades",x,"Spades"))
-				self.cardList.append((Name + " of Clubs",x,"Clubs"))
-
+				self.cardList.append(Cards(Name + " of Hearts", x, "Hearts"))
+				self.cardList.append(Cards(Name + " of Diamonds",x,"Diamonds"))
+				self.cardList.append(Cards(Name + " of Spades",x,"Spades"))
+				self.cardList.append(Cards(Name + " of Clubs",x,"Clubs"))
+		
+	def shuffle(self):
+		random.shuffle(self.cardList)
+	
 	def __str__(self):
-		return str(self.cardList)	
-#class Hand:
-
-#class Player:
+			
+		deckStr = ''
+		for card in self.cardList:
+			deckStr += card.__str__() + ','
+		return deckStr
 
 	
 def main():
 	deck = Deck()
+	print(deck)
+	deck.shuffle()
 	print(deck)
 	card = Cards("10 of Hearts", 10, "Hearts")
 	print(card)	
