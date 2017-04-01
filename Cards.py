@@ -8,3 +8,9 @@ class Cards:
 
 	def __str__(self):
 		return self.DisplayName
+
+	def rank(self):
+		return self.PointValue
+
+	def suit(self):
+		return self.Suit	
