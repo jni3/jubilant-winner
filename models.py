@@ -1,8 +1,13 @@
 class Cards:
+	"""Makes 1 card at a time, we probably have to use a loop to make them all, or just use the deck"""
 	def __init__(self,Display_in,PointValue_in,Suit_in):
-		self.DisplayName = Display_in #"king of Hearts, 10 of Hearts"
-		self.PointValue = PointValue_in # 1-13
-		self.Suit = Suit_in #Hearts, Clubs, Spades, Diamonds
+		self.DisplayName = Display_in 
+		self.PointValue = PointValue_in 
+		self.Suit = Suit_in 
+		
+
+	def __str__(self):
+		return str(self.DisplayName)
 
 class Deck:
 	def __init__(self,NumberOfDecks=1):
@@ -19,15 +24,23 @@ class Deck:
 					Name="King"
 				else:
 					Name=str(x)
-				self.cardList.append((Name + " of Hearts",x,"Hearts"))
+				
+				
+				self.cardList.append((Name + " of Hearts", x, "Hearts"))
 				self.cardList.append((Name + " of Diamonds",x,"Diamonds"))
 				self.cardList.append((Name + " of Spades",x,"Spades"))
 				self.cardList.append((Name + " of Clubs",x,"Clubs"))
 
 	def __str__(self):
 		return str(self.cardList)	
+#class Hand:
+
+#class Player:
+
 	
 def main():
 	deck = Deck()
 	print(deck)
+	card = Cards("10 of Hearts", 10, "Hearts")
+	print(card)	
 main()
