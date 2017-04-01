@@ -1,8 +1,8 @@
-import models
+import Deck
 import Cards
 
 def main():
-	deck = models.Deck()
+	deck = Deck.Deck()
 	print(deck)
 	deck.shuffle()
 	print(deck)
