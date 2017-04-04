@@ -1,9 +1,9 @@
-from Hand import Hand
+from bla import Hand
 
 class Player:
-    def _init_(self, name, score = 0, winnings):
+    def _init_(self, name, winnings, score = 0):
         self.name = name
-        self.hand = Hand()
+        self.hand = Hand.Hand()
         self.score = score
         self.points = []
 
@@ -14,11 +14,11 @@ class Player:
         return card #allows players to pick a card to play
 
     def play(self, action = 'play', c=None):
-        if c = None:
+        if(c == None):
             card = self.pick_a_card(action)
         else:
             card = c
-        if not auto:
+        if( not auto):
             card = self.hand.pick_a_card(card)
         return card
 
