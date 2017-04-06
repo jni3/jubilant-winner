@@ -10,7 +10,7 @@ class Hand:
         self.hearts = []
 
         self.hand = [self.clubs, self.diamonds, self.spades, self.hearts]
-
+        
     def addToListbySuit(self, card): 
         if(card.suit() == 'Clubs'):
             self.clubs.append(card)
@@ -26,29 +26,29 @@ class Hand:
     def sortCardsbyRank(self):
         clubsRankList = []
         for idx in self.clubs:
-            clubsRankList.append(idx.rank())
+            clubsRankList.append(str(idx.rank()) + ", " + idx) 
         clubsRankList.sort()
-        self.clubs += clubsRankList 
         
         spadesRankList = []
         for idx in self.spades:
-            spadesRankList.append(idx.rank())
+            spadesRankList.append(str(idx.rank()) + ", " + idx)
         spadesRankList.sort()
-        self.spades += spadesRankList
         
         heartsRankList = []
         for idx in self.hearts:
-            heartsRankList.append(idx.rank())
+            heartsRankList.append(str(idx.rank()) + ", " + idx)
         heartsRankList.sort()
-        self.hearts += heartsRankList
-        print(self.hearts)
-        print(heartsRankList)
 
         diamondsRankList = []
         for idx in self.diamonds:
-            diamondsRankList.append(idx.rank())
+            diamondsRankList.append(str(idx.rank()) + ", " + idx)
         diamondsRankList.sort()
-        self.diamonds+= diamondsRankList
+
+        sortedHand = [clubsRankList, spadesRankList, heartsRankList, diamondsRankList]
+        return sortedHand
+
+    def updateHand(self):
+        self.hand = sortCardsbyRank()
 
     def __str__(self):
         return str(self.hand)
