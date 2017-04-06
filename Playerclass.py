@@ -1,7 +1,7 @@
 from bla import Hand
 
 class Player:
-    def _init_(self, name, winnings, score = 0):
+    def _init_(self, name, score = 0):
         self.name = name
         self.hand = Hand.Hand()
         self.score = score
