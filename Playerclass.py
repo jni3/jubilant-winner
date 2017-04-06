@@ -1,9 +1,9 @@
 from bla import Hand
 
 class Player:
-    def _init_(self, name, score = 0):
+    def __init__(self, name, score = 0):
         self.name = name
-        self.hand = Hand.Hand()
+        self.hand = Hand()
         self.score = score
         self.points = []
 
@@ -24,3 +24,6 @@ class Player:
 
     def winnings(self, points):
         self.score += points #adds points to player's total after turn
+
+    def __str__(self):
+        return "Name: " + self.name + " Score: " + str(self.score)

@@ -1,6 +1,7 @@
 import Deck
 import Cards
 import bla
+import Playerclass
 
 def main():
 	print("=====Deck test=====")	
@@ -42,6 +43,10 @@ def main():
 		print(hand)
 		deck.addCards([dealtest])
 
+	
+	print("=====Make a player=====")
+	player1 = Playerclass.Player("player1")
+	print(player1)
 
 main()
 
