@@ -26,26 +26,27 @@ class Hand:
     def sortCardsbyRank(self):
         clubsRankList = []
         for idx in self.clubs:
-            clubsRankList.append(str(idx.rank()) + ", " + idx) 
+            clubsRankList.append((idx.rank(),idx.suit())) 
         clubsRankList.sort()
         
         spadesRankList = []
         for idx in self.spades:
-            spadesRankList.append(str(idx.rank()) + ", " + idx)
+            spadesRankList.append((idx.rank(), idx.suit()))
         spadesRankList.sort()
         
         heartsRankList = []
         for idx in self.hearts:
-            heartsRankList.append(str(idx.rank()) + ", " + idx)
+            heartsRankList.append((idx.rank(), idx.suit()))
         heartsRankList.sort()
 
         diamondsRankList = []
         for idx in self.diamonds:
-            diamondsRankList.append(str(idx.rank()) + ", " + idx)
+            diamondsRankList.append((idx.rank(),idx.suit()))
         diamondsRankList.sort()
 
         sortedHand = [clubsRankList, spadesRankList, heartsRankList, diamondsRankList]
-        return sortedHand
+        self.hand = sortedHand
+        return self.hand	
 
     def updateHand(self):
         self.hand = sortCardsbyRank()

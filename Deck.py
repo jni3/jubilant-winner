@@ -5,8 +5,8 @@ class Deck:
 	def __init__(self,NumberOfDecks=1):
 		self.cardList = []
 		for i in range(NumberOfDecks):
-			for x in range(1,14):
-				if(x==1):
+			for x in range(2,15):
+				if(x==14):
 					Name="Ace"
 				elif(x==11):
 					Name="Jack"

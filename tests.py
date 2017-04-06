@@ -26,23 +26,16 @@ def main():
 	
 	card2 = Cards.Cards("5 of Hearts", 5, "Hearts")
 
-	print("=====Hand test=====")
-	hand = bla.Hand()
-	hand.addToListbySuit(card)
-	hand.addToListbySuit(card2)
-	print(hand)
-
 	
-	#hand.sortCardsbyRank()
-
 	print("=====Deal a hand=====")
+	hand = bla.Hand()	
 	for i in range(13):
 		dealtest = deck.deal()
 		print(dealtest)
 		hand.addToListbySuit(dealtest)
-		print(hand)
 		deck.addCards([dealtest])
-
+	hand.sortCardsbyRank()
+	print(hand)
 	
 	print("=====Make a player=====")
 	player1 = Playerclass.Player("player1")
