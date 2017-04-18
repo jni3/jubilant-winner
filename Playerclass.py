@@ -1,11 +1,12 @@
 from bla import Hand
 
 class Player:
-    def __init__(self, name, score = 0):
+    def __init__(self, name, computer = True, score = 0):
         self.name = name
         self.hand = Hand()
         self.score = score
         self.points = []
+        self.computer = computer # is it a computer or not
 
     def pick_a_card(self, action):
         card = None
