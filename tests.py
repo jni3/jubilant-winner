@@ -3,6 +3,7 @@ import Cards
 import bla
 import Playerclass
 import Trick
+from PIL import Image
 
 
 def main():
@@ -25,6 +26,8 @@ def main():
 	print(card)	
 	print(card.rank())
 	print(card.suit())
+	image = card.getImage()
+	image.show()
 	
 	card2 = Cards.Cards("5 of Hearts", 5, "Hearts")
 

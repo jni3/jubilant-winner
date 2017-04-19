@@ -1,13 +1,14 @@
-
+from PIL import Image
 
 class Cards:
-	
+
 	def __init__(self,Display_in,PointValue_in,Suit_in):
-		self.DisplayName = Display_in 
-		self.PointValue = PointValue_in 
-		self.Suit = Suit_in 
-	#	self.Image = Image from file
-		
+		self.DisplayName = Display_in
+		self.PointValue = PointValue_in
+		self.Suit = Suit_in
+		name = str(PointValue_in) + "_of_" + Suit_in.lower()+ ".png"
+		self.picture = Image.open(name)
+
 
 	def __str__(self):
 		return self.DisplayName
@@ -16,4 +17,7 @@ class Cards:
 		return self.PointValue
 
 	def suit(self):
-		return self.Suit	
+		return self.Suit
+
+	def getImage(self):
+		return self.picture
