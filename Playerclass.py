@@ -22,11 +22,17 @@ class Player:
             card = self.pick_a_card(action)
         else:
             card = c
-        if( not auto):
+        if( not auto):		#Where does this 'auto' come from?
             card = self.hand.pick_a_card(card)
         return card
 
     def winnings(self, points):
         self.score += points #adds points to player's total after turn
+    
+    def playerHand(self):
+        return self.hand
+
+    def setHand(self, handplayer):
+        self.hand = handplayer
 
 
