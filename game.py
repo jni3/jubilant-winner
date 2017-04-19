@@ -11,14 +11,16 @@ cardsToPass = 3
 def main():
     name = input("Please enter your name: ")
     game = HeartsFinalProject.Hearts(name) #initializes the game and deals the first hand
-
+    highestScore = 0
 
     
-    while (game.scoringTotal() < maxScore):    #makes sure you play to a 100 points
+    while (highestScore < maxScore):    #makes sure you play to a 100 points
         game.newRound()
         for r in range(totalTricks): # you play 13 tricks
             game.playATrick() # This has to ask all players for a card, these are added to the trick list
             game.scoringOfTrick()
-        game.scoringTotal()
+        highestScore = game.scoringTotal()
+
+    game.finalScore()
 
 main()

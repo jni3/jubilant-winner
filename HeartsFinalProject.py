@@ -20,6 +20,7 @@ class Hearts:
         self.trickWinner = -1
         self.heartsBroken = False
         self.losingPlayer = None
+        self.winningPlayer = None
         self.passingCards = [[],[],[],[]]
         self.players = [Player(name, False), Player("John"), Player("Mary"), Player("Joey")]
 
@@ -70,9 +71,23 @@ class Hearts:
 
     def scoringTotal(self):
         highestScore = 0
+        lowestScore = 150
         for p in self.players:
-            if(p.score > highestScore):
+            if(p.playerScore > highestScore):
                 loser = p
-                highestScore = p.score
+                highestScore = p.playerScore
+            if(p.playerScore < lowestScore):
+                winner = p
+                lowestScore = p.playerScore
             self.losingPlayer = loser
+            self.winningPlayer = winner
         return highestScore
+
+    
+    def finalScore(self):
+        print("Final score:")
+        for p in self.players:
+            print(p)
+        print(self.losingPlayer," lost the game")
+        print(self.winningPlayer, " won the game")
+

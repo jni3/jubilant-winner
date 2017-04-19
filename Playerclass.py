@@ -29,6 +29,9 @@ class Player:
     def winnings(self, points):
         self.score += points #adds points to player's total after turn
     
+    def playerScore(self):
+        return self.score
+    
     def playerHand(self):
         return self.hand
 
