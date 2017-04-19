@@ -7,7 +7,10 @@ class Player:
         self.score = score
         self.points = []
         self.computer = computer # is it a computer or not
-
+    
+    def __str__(self):
+        return "Name: " + self.name + " Score: " + str(self.score)
+    
     def pick_a_card(self, action):
         card = None
         while card is None:
@@ -26,5 +29,4 @@ class Player:
     def winnings(self, points):
         self.score += points #adds points to player's total after turn
 
-    def __str__(self):
-        return "Name: " + self.name + " Score: " + str(self.score)
+

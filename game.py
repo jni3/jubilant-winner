@@ -17,3 +17,5 @@ def main():
             game.playATrick() # This has to ask all players for a card, these are added to the trick list
             game.scoringOfTrick()
         game.scoringTotal()
+
+main()

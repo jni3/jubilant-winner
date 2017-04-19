@@ -1,16 +1,19 @@
 import Cards
 import Deck
+import random
 
 class Hand:
     def __init__(self):
-        #preferred over list of ranks, because would have to create more lists
         self.clubs = []
         self.diamonds = []
         self.spades = []
         self.hearts = []
 
         self.hand = [self.clubs, self.diamonds, self.spades, self.hearts]
-        
+ 
+    def __str__(self):
+        return str(self.hand)       
+    
     def addToListbySuit(self, card): 
         if(card.suit() == 'Clubs'):
             self.clubs.append(card)
@@ -44,15 +47,20 @@ class Hand:
             diamondsRankList.append((idx.rank(),idx.suit()))
         diamondsRankList.sort()
 
-        sortedHand = [clubsRankList, spadesRankList, heartsRankList, diamondsRankList]
+        sortedHand = [clubsRankList, diamondsRankList, spadesRankList, heartsRankList]
         self.hand = sortedHand
         return self.hand	
 
     def updateHand(self):
         self.hand = sortCardsbyRank()
 
-    def __str__(self):
-        return str(self.hand)
+    def chooseRandomCard(self):
+        randomSuit = random.choice(self.hand)
+        randomCard = random.choice(randomSuit)
+        return randomCard
+        
+
+    
 		
 
         

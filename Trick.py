@@ -12,28 +12,33 @@ class Trick:
         self.highest = 0
         self.winner = -1
 
-    def setTrickSuit(self, card): #card is GUI input
-        self.suit = card.suit()
+    def __str__(self):
+        return str(self.trick)
 
-    def addCard(self,card, index):   #This is playing a card, card has to be entered via GUI, index has to tell which player enters the card
+    def setTrickSuit(self, card): #card is GUI input
+        self.suit = card[1]
+
+    def addCard(self,card, i):   #This is playing a card, card has to be entered via GUI, index has to tell which player enters the card
         if(self.cardsInTrick == 0):
             self.setTrickSuit(card)
 
-        self.trick.append(card)
+        self.trick.append(card)	#GUI has to choose a card here
         self.cardsInTrick += 1
 
-        if(card.suit() == "Hearts"):
+	#I assume the card is still a card object here, but in the hand they are converted to tuples..
+        if(card[1] == "Hearts"):
             self.points += 1
-        elif(card.suit() == "Spades" and card.rank()==12):
+        elif(card[1] == "Spades" and card[0]==12):
             self.points += 13
 
-        if(card.suit() == self.suit):
-            if(card.rank() > self.highest):
-                self.highest = card.rank()
-                self.winner = index
+        if(card[1] == self.suit):
+            if(card[0] > self.highest):
+                self.highest = card[0]
+                self.winner = i
+                
 
-    def winner(self):
+    def winnerRound(self):
         return self.winner
 
-    def points(self):
+    def pointsRound(self):
         return self.points

@@ -2,6 +2,8 @@ import Deck
 import Cards
 import bla
 import Playerclass
+import Trick
+
 
 def main():
 	print("=====Deck test=====")	
@@ -37,10 +39,20 @@ def main():
 	hand.sortCardsbyRank()
 	print(hand)
 	
+
 	print("=====Make a player=====")
 	player1 = Playerclass.Player("player1")
 	print(player1)
 
+
+	print("=====Trick test=====")
+	trick = Trick.Trick()
+	for i in range(4):
+		trick.addCard(hand.chooseRandomCard(), i) 
+		print(trick)
+
+	print("Player ", trick.winnerRound(), " won this round")
+	print("and he scored ", trick.pointsRound(), " points")
 main()
 
 

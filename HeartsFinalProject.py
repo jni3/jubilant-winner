@@ -16,7 +16,7 @@ class Hearts:
         self.trickNum = 0
         self.dealer = 0
         self.passes = [1,-1,2,0]
-        self.currentTrick = Trick()
+        self.currentTrick = Trick.Trick()
         self.trickWinner = -1
         self.heartsBroken = False
         self.losingPlayer = None
@@ -37,17 +37,17 @@ class Hearts:
     def dealCards(self):        #gets called when you start a new round
         for i in range(13):
             for p in self.players:
-                p.hand += self.deck.deal()  #actual hand has to be implemented
+                p.hand.addToListbySuit(self.deck.deal())  #actual hand has to be implemented
 
     def playATrick(self):
-        self.currentTrick = Trick()
+        self.currentTrick = Trick.Trick()
         for i in self.players:
-            self.currentTrick.addCard(card, index) #GUI has to enter which card is clicked and which player's turn it is
+            self.currentTrick.addCard(card, index) #GUI has to enter which card is clicked and which player's turn is playing it
 
 
     def scoringOfTrick(self):             #updates the score of the player who wins the round
-        winner = self.players[self.currentTrick.winner()]
-        winner.winnings(self.currentTrick.points())
+        winner = self.players[self.currentTrick.winnerRound()]
+        winner.winnings(self.currentTrick.pointsRound())
 
     def scoringTotal(self):
         highestScore = 0
