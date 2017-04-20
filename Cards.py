@@ -7,7 +7,7 @@ class Cards:
 		self.PointValue = PointValue_in
 		self.Suit = Suit_in
 		name = str(PointValue_in) + "_of_" + Suit_in.lower()+ ".png"
-		self.picture = Image.open(name)
+		self.picture = Image.open("Allcards/"+name) #in the Allcards folder
 
 
 	def __str__(self):
