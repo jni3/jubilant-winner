@@ -30,6 +30,8 @@ class Hearts:
         self.deck.shuffle()
         self.roundNum += 1
         self.trickNum = 0
+        for s in self.players:
+            s.setTrickScore(0)
         self.heartsBroken = False
         self.dealCards()
         self.passingCards = [[],[],[],[]]
@@ -49,25 +51,36 @@ class Hearts:
             clubs = hand[0]
             if((2, 'Clubs') in clubs):
                 self.trickWinner = i
-            
-            
+
+
 
     def playATrick(self):
         self.currentTrick = Trick.Trick()
         self.trickNum += 1
 
-        startPlayer = self.players[self.trickWinner]
-	startPlayer.play()
+
         for i in range(self.trickwinner, self.trickWinner+len(self.players)):
             i = i %4
             card = self.players[i].play() #Is a function from the playerclass, how does this work?
-            self.currentTrick.addCard(card, i) 
+            self.currentTrick.addCard(card, i)
 
 
     def scoringOfTrick(self):             #updates the score of the player who wins the round
         winner = self.players[self.currentTrick.winnerRound()]
-        winner.winnings(self.currentTrick.pointsRound())
+        winner.setTrickScore(self.currentTrick.pointsRound())
         self.trickWinner = self.currentTrick.winnerRound()
+
+    def shootMoon(self):
+        shot = False
+        for s in self.players:
+            if(s.trickScore()  == 26):
+                print("You shot the moon!")
+                shot = True
+        return shot
+
+    def scoringOfRound(self):
+        for s in self.players:
+            s.winnings(s.trickScore())
 
     def scoringTotal(self):
         highestScore = 0
@@ -83,7 +96,7 @@ class Hearts:
             self.winningPlayer = winner
         return highestScore
 
-    
+
     def finalScore(self):
         print("Final score:")
         for p in self.players:
@@ -91,3 +104,5 @@ class Hearts:
         print(self.losingPlayer," lost the game")
         print(self.winningPlayer, " won the game")
 
+    def participants(self):
+        return self.players
