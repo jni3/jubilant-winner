@@ -16,9 +16,6 @@ def main():
 	print("=====Deck deal a card=====")
 	deal = deck.deal()	
 	print(deal)
-	deck.addCards([deal])
-	print(deck)
-	
 	
 
 	print("=====Card test=====")
@@ -30,7 +27,9 @@ def main():
 	image.show()
 	
 	card2 = Cards.Cards("5 of Hearts", 5, "Hearts")
-
+	
+	print("===Pass 3 cards===")
+	
 	
 	print("=====Deal a hand=====")
 	hand = bla.Hand()	
@@ -45,7 +44,13 @@ def main():
 
 	print("=====Make a player=====")
 	player1 = Playerclass.Player("player1")
+	player2 = Playerclass.Player("Computer 1")
+	player3 = Playerclass.Player("Computer 2")
+	player4 = Playerclass.Player('Computer 3")
 	print(player1)
+	print(player2)			     
+	print(player3)
+	print(player4)
 
 
 	print("=====Trick test=====")
