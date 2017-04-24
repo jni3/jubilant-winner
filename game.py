@@ -23,9 +23,9 @@ def main():
             players = game.participants()
             for s in players:
                 if(s.trickScore != 26):
-                    s.setTrickScore(26)
+                    s.resetTrickScore(26)
                 else:
-                    s.setTrickScore(0)
+                    s.resetTrickScore(0)
         game.scoringOfRound()
         highestScore = game.scoringTotal()
 

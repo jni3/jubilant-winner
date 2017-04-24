@@ -10,11 +10,11 @@ class Hand:
         self.hearts = []
 
         self.hand = [self.clubs, self.diamonds, self.spades, self.hearts]
- 
+
     def __str__(self):
-        return str(self.hand)       
-    
-    def addToListbySuit(self, card): 
+        return str(self.hand)
+
+    def addToListbySuit(self, card):
         if(card.suit() == 'Clubs'):
             self.clubs.append(card)
         elif(card.suit() == 'Spades'):
@@ -24,19 +24,19 @@ class Hand:
         elif(card.suit() == 'Hearts'):
             self.hearts.append(card)
         else:
-            print('Please enter a valid card')
-            
+            print('Please input a valid card')
+
     def sortCardsbyRank(self):
         clubsRankList = []
         for idx in self.clubs:
-            clubsRankList.append((idx.rank(),idx.suit())) 
+            clubsRankList.append((idx.rank(),idx.suit()))
         clubsRankList.sort()
-        
+
         spadesRankList = []
         for idx in self.spades:
             spadesRankList.append((idx.rank(), idx.suit()))
         spadesRankList.sort()
-        
+
         heartsRankList = []
         for idx in self.hearts:
             heartsRankList.append((idx.rank(), idx.suit()))
@@ -47,22 +47,22 @@ class Hand:
             diamondsRankList.append((idx.rank(),idx.suit()))
         diamondsRankList.sort()
 
-        sortedHand = [clubsRankList, diamondsRankList, spadesRankList, heartsRankList]
-        self.hand = sortedHand
-        return self.hand	
+        self.hand = [clubsRankList, diamondsRankList, spadesRankList, heartsRankList]
 
-    def updateHand(self):
-        self.hand = sortCardsbyRank()
-
-    def chooseRandomCard(self):
+    def chooseRandomSuit(self):
         randomSuit = random.choice(self.hand)
+        return randomSuit
+
+    def chooseRandomCard(self, randomSuit):
         randomCard = random.choice(randomSuit)
-        return randomCard
-        
+        randomCardIndex = randomSuit.index(randomCard)
+        return randomCardIndex
 
-    
-		
-
-        
-
-    
+    def choosePass(self, numOfPass):
+        tempList = []
+        for i in range(numOfPass):
+            randomSuit = self.chooseRandomSuit()
+            removedCard = self.chooseRandomCard(randomSuit)
+            remove = randomSuit.pop(removedCard)         #This only deletes the card from the local hand, not the global one
+            tempList.append(remove)
+        return tempList
