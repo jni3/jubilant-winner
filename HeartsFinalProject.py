@@ -15,7 +15,7 @@ class Hearts:
         self.roundNum = 0
         self.trickNum = 0
         self.dealer = 0
-        self.passes = [1,-1,2,0]
+        self.passes = [1,3,2,0]
         self.currentTrick = Trick.Trick()
         self.trickWinner = -1
         self.trickNum = 0
@@ -36,6 +36,7 @@ class Hearts:
         self.heartsBroken = False
         self.dealCards()
         self.passingCards = []
+        self.passCards()
         self.has2Clubs()
 
     def passCards(self):
@@ -52,7 +53,8 @@ class Hearts:
                 self.passingCards.append(listToPass)
 
         for i in range(len(self.players)):
-            for eachCard in self.passingCards[i+self.passes]: #Doesn't make a circle, will give an error with the first or last player
+            j = (i + self.passes)%4
+            for eachCard in self.passingCards[j]:
                  playerHand = self.players[i].playerHand()
                  playerHand.addToListBySuit(eachCard)
                  playerHand.sortCardsbyRank()
@@ -62,7 +64,7 @@ class Hearts:
         for i in range(13):
             for p in self.players:
                 hand = p.playerHand()
-                hand.addToListbySuit(self.deck.deal())  #actual hand has to be implemented
+                hand.addToListbySuit(self.deck.deal())
                 p.setHand(hand)
 
     def has2Clubs(self):
@@ -84,7 +86,7 @@ class Hearts:
                 while (card[1] == "Hearts" or (card[0] == 12 and card[1] == 'Spades'))
                     self.players[i].reAdd(card)
                     card = self.players[i].play(x, self.currentTrick.trickSuit())
-            self.currentTrick.addCard(card)
+            self.currentTrick.addCard(card, i)
             self.currentTrick.scorePoints(card)
             self.currentTrick.trickWinner(card, i)
         self.trickNum +=1
