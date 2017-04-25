@@ -31,6 +31,7 @@ def main():
 	print("===Pass 3 cards===")
 	
 	
+	
 	print("=====Deal a hand=====")
 	hand = bla.Hand()	
 	for i in range(13):
