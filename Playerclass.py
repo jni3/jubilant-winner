@@ -14,11 +14,17 @@ class Player:
     def __str__(self):
         return "Name: " + self.name + " Score: " + str(self.score)
 
-    def pick_a_card(self, action):
-        card = None
-        while card is None:
+    def pick_a_card(self, trickSuit, action):
+        while(True):
             card = raw_input (self.name + ", pick a card to" + action + ":")
-        return card #allows players to pick a card to play
+            if(self.hand[trickSuit[1]] != []):
+                if(card[1] == trickSuit[0]):
+                    return card
+                else:
+                    print("You have to play the asked suit, try again!")
+            else:
+                return card
+        #allows players to pick a card to play
                     #how does this work?
 
     def reAdd(self, card):
@@ -41,17 +47,26 @@ class Player:
 
             if(x == 'Card already played'):
                 randomTry = []
-                while (randomTry[1] != trickSuit): #Might break if index 1 is non existent
-                    try:
-                    randomSuit = self.hand.chooseRandomSuit()
-                    randomCard = self.hand.chooseRandomCard(randomSuit)
-                    randomTry = randomSuit[randomCard]
-                    except IndexError:
-                        print('Empty list, retrying until valid card')
+                if(self.hand[trickSuit[1]] != []):
+                    while (randomTry[1] != trickSuit[0]): #Might break if index 1 is non existent
+                        try:
+                            randomSuit = self.hand.chooseRandomSuit()
+                            randomCard = self.hand.chooseRandomCard(randomSuit)
+                            randomTry = randomSuit[randomCard]
+                        except IndexError:
+                            print('Empty list, retrying until valid card')
+                else:
+                    while(randomTry == []):
+                        try:
+                            randomSuit = self.hand.chooseRandomSuit()
+                            randomCard = self.hand.chooseRandomCard(randomSuit)
+                            randomTry = randomSuit[randomCard]
+                        except IndexError:
+                            print('Empty list, retrying until valid card')
                 randomCard = randomSuit.pop(randomCard)
                 return randomCard
         else:
-            card = self.pick_a_card(action)
+            card = self.pick_a_card(trickSuit, 'play')
             return card
         #still need to figure out how player works.
         #also, how would it work for picking matching suit and heartsbroken rules

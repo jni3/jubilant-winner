@@ -79,13 +79,19 @@ class Hearts:
             i = i %4
             if(self.currentTrick.cardsInTrick() == 0):
                 x = 'No card played'
-            else
+            else:
                 x = 'Card already played'
             card = self.players[i].play(x, self.currentTrick.trickSuit())
             if(self.trickNum == 0):
                 while (card[1] == "Hearts" or (card[0] == 12 and card[1] == 'Spades'))
                     self.players[i].reAdd(card)
                     card = self.players[i].play(x, self.currentTrick.trickSuit())
+            if(not self.heartsBroken and self.currentTrick.cardsInTrick() == 0):
+                while(card[1] == "Hearts"):
+                    self.players[i].readd(card)
+                    card = self.players[i].play(x, self.currentTrick.trickSuit())
+            if(card[1] == "Hearts"):
+                self.heartsBroken = True
             self.currentTrick.addCard(card, i)
             self.currentTrick.scorePoints(card)
             self.currentTrick.trickWinner(card, i)
