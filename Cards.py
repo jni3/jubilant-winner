@@ -2,29 +2,34 @@ from PIL import Image
 
 class Cards:
 
-	def __init__(self,PointValue_in,Suit_in):
-		self.PointValue = PointValue_in
-		self.Suit = Suit_in
-		name = str(PointValue_in) + "_of_" + Suit_in.lower()+ ".png"
+	def __init__(self,points,suit, picture):
+		self.points = Points(points)
+		self.suit = Suit(suit)
+		name = str(points) + "_of_" + suit.lower()+ ".png"
 		self.picture = Image.open("Allcards/"+name)
 
 	def __str__(self):
-#                if(self.PointValue_in == 14)
-#                        self.PointValue = "Ace"
-#                elif(self.PointValue == 13)
-#                        self.PointValue = "King"
-#                elif(self.PointValue == 12)
-#                        self.PointValue = "Queen"
-#                elif(self.PointValue == 11)
-#                        self.PointValue_in = "Jack"
-#				This doesn't work, maybe we can just leave the pointvalues in the code and only use the names in the pictures
-                return str(self.PointValue) + " of " + self.Suit
+                if(self.points == 14)
+                        self.points = "Ace"
+                elif(self.points == 13)
+                        self.points = "King"
+                elif(self.points == 12)
+                        self.points = "Queen"
+                elif(self.points == 11)
+                        self.points = "Jack"
+                return str(self.points) + " of " + self.suit
 
-	def rank(self):
-		return self.PointValue
-
-	def suit(self):
-		return self.Suit
-
+class Points:
+	def__init__(self, points):
+		self.points = points
+		self.string = ' '
+		face_cards = ["Jack", "Queen", "King", "Ace"]
+		if points >= 2 and points <= 10:
+			self.string = str(points)
+		elif points <=10 and points >= 14:
+			self.string = face_cards[points- 11]
+		else:
+			print "Card does not exist"
+	
 	def getImage(self):
 		return self.picture
