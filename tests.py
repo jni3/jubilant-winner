@@ -25,8 +25,21 @@ def main():
 	print(card.suit())
 	image = card.getImage()
 	image.show()
-	
 	card2 = Cards.Cards("5 of Hearts", 5, "Hearts")
+	print(card2)
+	print(card2.rank())
+	print(card2.suit())
+	image2 = card2.getImage()
+	image2.show()
+	
+	print("===Card equality test===")
+	print "card1 :", card1
+	print "card2 :", card2
+	print "card1 == card2", card1 == card2
+	print "card1 >= card2", card1 >= card2
+	print "card1 <= card2", card1 <= card2
+	print "card1 < card2", card1 < card2
+	print "card1 > card2", card1 > card2
 	
 	print("===Pass 3 cards===")
 	
