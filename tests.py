@@ -33,18 +33,14 @@ def main():
 	image2.show()
 	
 	print("===Card equality test===")
-	print "card1 :", card1
-	print "card2 :", card2
+	print "Card 1 :", card1
+	print "Card 2 :", card2
 	print "card1 == card2", card1 == card2
 	print "card1 >= card2", card1 >= card2
 	print "card1 <= card2", card1 <= card2
 	print "card1 < card2", card1 < card2
 	print "card1 > card2", card1 > card2
-	
-	print("===Pass 3 cards===")
-	
-	
-	
+		
 	print("=====Deal a hand=====")
 	hand = bla.Hand()	
 	for i in range(13):
@@ -57,7 +53,8 @@ def main():
 	
 
 	print("=====Make a player=====")
-	player1 = Playerclass.Player("player1")
+	w = str(input("What is your name?: "))
+	player1 = Playerclass.Player(w)
 	player2 = Playerclass.Player("Computer 1")
 	player3 = Playerclass.Player("Computer 2")
 	player4 = Playerclass.Player('Computer 3")
@@ -65,7 +62,6 @@ def main():
 	print(player2)			     
 	print(player3)
 	print(player4)
-
 
 	print("=====Trick test=====")
 	trick = Trick.Trick()
