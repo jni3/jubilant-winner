@@ -1,4 +1,4 @@
-from bla import Hand
+from Hand import Hand
 import random
 import Card
 import Trick
