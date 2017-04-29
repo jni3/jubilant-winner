@@ -62,6 +62,12 @@ def main():
 	print(player2)			     
 	print(player3)
 	print(player4)
+	
+	print ("===Hand Test===")
+	print player1.Hand
+	print player2.Hand
+	print player3.Hand
+	print player4.Hand
 
 	print("=====Trick test=====")
 	trick = Trick.Trick()
