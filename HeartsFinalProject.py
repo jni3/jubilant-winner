@@ -1,7 +1,7 @@
 import Cards
 import Deck
 from Playerclass import Player
-import bla
+import Hand
 import Trick
 
 
