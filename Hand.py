@@ -25,6 +25,9 @@ class Hand:
             self.hearts.append(card)
         else:
             print('Please input a valid card')
+            
+    def add(self,card):
+        self.Cards.append(card)
 
     def sortCardsbyRank(self):
         clubsRankList = []
