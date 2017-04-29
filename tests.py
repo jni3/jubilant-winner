@@ -64,10 +64,11 @@ def main():
 	print(player4)
 	
 	print ("===Hand Test===")
-	print player1.Hand
-	print player2.Hand
-	print player3.Hand
-	print player4.Hand
+	deck = Deck()
+	deck.shuffle()
+	hand1 = Hand("player1")
+	deck.deal ([hand1], 13)
+	print hand1
 
 	print("=====Trick test=====")
 	trick = Trick.Trick()
