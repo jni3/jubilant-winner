@@ -8,7 +8,7 @@ class Trick:
         self.trick = []
         self.suit = -1
         self.suitNum = 0
-        self.cardsInTrick = 0
+        self.noCardsInTrick = 0
         self.points = 0         #The number of points in this trick
         self.highest = 0
         self.winner = -1
@@ -28,11 +28,11 @@ class Trick:
             self.suitNum = 4
 
     def addCard(self,card, i):   #This is playing a card, card has to be entered via GUI, index has to tell which player enters the card
-        if(self.cardsInTrick == 0):
+        if(self.noCardsInTrick == 0):
             self.setTrickSuit(card)
 
         self.trick.append(card)	#GUI has to choose a card here
-        self.cardsInTrick += 1
+        self.noCardsInTrick += 1
 
     def scorePoints(self, card):
         if(card[1] == "Hearts"):
@@ -53,7 +53,7 @@ class Trick:
         return self.points
 
     def cardsInTrick(self):
-            return self.cardsInTrick
+        return self.noCardsInTrick
 
     def trickSuit(self):
-            return self.suit, self.suitNum
+        return self.suit, self.suitNum

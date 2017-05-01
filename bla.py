@@ -61,8 +61,15 @@ class Hand:
     def choosePass(self, numOfPass):
         tempList = []
         for i in range(numOfPass):
-            randomSuit = self.chooseRandomSuit()
-            removedCard = self.chooseRandomCard(randomSuit)
-            remove = randomSuit.pop(removedCard)         #This only deletes the card from the local hand, not the global one
-            tempList.append(remove)
+            t = True
+            while(t == True):
+                try:
+                    randomSuit = self.chooseRandomSuit()
+                    removedCard = self.chooseRandomCard(randomSuit)
+                    remove = randomSuit.pop(removedCard)        
+                    tempList.append(remove)
+                    t = False
+                except:
+                    print("oops something went wrong")
+                
         return tempList

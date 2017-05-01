@@ -27,8 +27,9 @@ class Hearts:
 
 #do you need a round Num
     def newRound(self):
-        self.deck = Deck.Deck() #every round generates a new deck
-        self.deck.shuffle()
+        deck = Deck.Deck() #every round generates a new deck
+	self.deck = deck.generateDeck()        
+	self.deck.shuffle()
         self.roundNum += 1
         self.trickNum = 0
         for s in self.players:
@@ -109,7 +110,7 @@ class Hearts:
         winner = self.players[self.currentTrick.winnerRound()
         winner.winnings(self.currentTrick.pointsRound())
         self.trickWinner = self.currentTrick.winnerRound()
-#shouldn't self.losingPlayer be an attribute of the player
+
     def scoringTotal(self):
         highestScore = 0
         lowestScore = 150

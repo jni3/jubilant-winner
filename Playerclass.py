@@ -1,6 +1,6 @@
 from bla import Hand
 import random
-import Card
+import Cards
 import Trick
 
 class Player:
@@ -47,24 +47,29 @@ class Player:
 
             if(x == 'Card already played'):
                 randomTry = []
-                if(self.hand[trickSuit[1]] != []):
+                hand = list(self.hand)
+                print(hand)
+                index = trickSuit[1]
+                if(hand[index] != []):
                     while (randomTry[1] != trickSuit[0]): #Might break if index 1 is non existent
                         try:
-                            randomSuit = self.hand.chooseRandomSuit()
-                            randomCard = self.hand.chooseRandomCard(randomSuit)
-                            randomTry = randomSuit[randomCard]
+                            randomTry = self.hand.choosePass(1)
+                            #randomSuit = self.hand.chooseRandomSuit()
+                            #randomCard = self.hand.chooseRandomCard(randomSuit)
+                            #randomTry = randomSuit[randomCard]
                         except IndexError:
                             print('Empty list, retrying until valid card')
                 else:
                     while(randomTry == []):
                         try:
-                            randomSuit = self.hand.chooseRandomSuit()
-                            randomCard = self.hand.chooseRandomCard(randomSuit)
-                            randomTry = randomSuit[randomCard]
+                            randomTry = self.hand.choosePass(1)
+                            #randomSuit = self.hand.chooseRandomSuit()
+                            #randomCard = self.hand.chooseRandomCard(randomSuit)
+                            #randomTry = randomSuit[randomCard]
                         except IndexError:
                             print('Empty list, retrying until valid card')
-                randomCard = randomSuit.pop(randomCard)
-                return randomCard
+                #randomCard = randomSuit.pop(randomCard)
+                return randomTry[0]
         else:
             card = self.pick_a_card(trickSuit, 'play')
             return card
@@ -94,5 +99,6 @@ class Player:
     def resetTrickScore(self, points):
         self.trickScore = points
 
-    def trickScore(self):
+    def playerTrickScore(self):
         return self.trickScore
+
