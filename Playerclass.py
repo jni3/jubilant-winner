@@ -12,7 +12,7 @@ class Player:
         self.trickScore = 0
 
     def __str__(self):
-        return "Name: " + self.name + " Score: " + str(self.score)
+        return self.name
 
     def pick_a_card(self, trickSuit, action):
         while(True):

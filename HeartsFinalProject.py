@@ -11,7 +11,7 @@ maxScore = 100
 cardsToPass = 3
 
 class Hearts:
-    def __init__(self, name):
+    def __init__(self):
         self.roundNum = 0
         self.trickNum = 0
         self.dealer = 0
@@ -23,9 +23,10 @@ class Hearts:
         self.losingPlayer = None
         self.winningPlayer = None
         self.passingCards = []
+        name = input("Please enter your name: ")
         self.players = [Player(name, False), Player("John"), Player("Mary"), Player("Joey")]
 
-#do you need a round Num
+
     def newRound(self):
         deck = Deck.Deck() #every round generates a new deck
 	self.deck = deck.generateDeck()        
@@ -126,17 +127,52 @@ class Hearts:
         return highestScore
 
     def scoringOfRound(self):
+        scores = "\n"
         for s in self.players:
-            s.winnings(s.trickScore())
+            s.winnings(s.playerTrickScore())
+            scores += str(s.playerScore()) + "\t"
+        scoringFile.write(scores)
 
 
     def finalScore(self):
+        scoringFile = open("Scores.txt", 'r').read()
         print("Final score:")
-        for p in self.players:
-            print(p)
+        print(scoringFile)
         print(self.losingPlayer," lost the game")
         print(self.winningPlayer, " won the game")
 
 
     def participants(self):
         return self.players
+
+    def playGame(self):
+        highestScore = 0
+        scoringFile = open("Scores.txt", 'w')
+        for s in self.players:
+            scoringFile.write(s + "\t")
+
+        while (highestScore < maxScore):    #makes sure you play to a 100 points
+            self.newRound()
+            for r in range(totalTricks): # you play 13 tricks
+                self.playATrick() # This has to ask all players for a card, these are added to the trick list
+                self.scoringOfTrick()
+            if(self.shootMoon()):
+                players = self.participants()
+                for s in self.players:
+                    if(s.trickScore != 26):
+                        s.resetTrickScore(26)
+                    else:
+                        s.resetTrickScore(0)
+            self.scoringOfRound()
+            highestScore = self.scoringTotal()
+        
+        scoringFile.close()
+        self.finalScore()
+        
+
+def main():
+    game = HeartsFinalProject.Hearts()
+    game.playGame()
+main()
+
+
