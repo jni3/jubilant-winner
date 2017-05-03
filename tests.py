@@ -6,8 +6,6 @@ import Trick
 from PIL import Image
 from HeartsFinalProject import Hearts
 
-#You can't index into the hand to get a list of 1 specific suit, but multiple function rely on this. We should try to fix that
-
 def main():
 	print("=====Deck test=====")	
 	deck = Deck.Deck()
@@ -44,8 +42,8 @@ def main():
 		
 	hand.sortCardsbyRank()
 	print(hand)
-	#smallHand = hand.getCardsinSuitlist('clubs')
-	#print(smallHand)
+	smallHand = hand.getCardsinSuitlist('Clubs')
+	print(smallHand)
 
 	print("======Pass cards=====")
 	print(hand.choosePass(3))
@@ -83,10 +81,8 @@ def main():
 	print(playedCard)
 	print('--When a card has been played--')
 	x = 'Card already played'
-	#playedCard = player2.play(x, ('Hearts',4))
-	#print(playedCard)
-	#When a card has been played the check for seeing if you have the trick suit doesn't work. It says that you can't index into the hand object
-	
+	playedCard = player2.play(x, ('Hearts',4))
+	print(playedCard)
 	
 	print("=====Trick test=====")
 	trick = Trick.Trick()
@@ -113,7 +109,14 @@ def main():
 	for p in players:
 		print(p.name)
 		print(p.hand)
-		#game.playATrick()
+	game.playATrick()
+	print("Cards in the trick:", game.currentTrick)
+	print("Points in the trick:", game.currentTrick.pointsRound())
+	print("Winner of the trick:", game.currentTrick.winnerRound())
+	for p in players:
+		print(p.name)
+		print(p.hand)
+
 
 	print("---Shooting the moon---")	
 	players[0].resetTrickScore(26)

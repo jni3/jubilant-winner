@@ -42,7 +42,7 @@ class Hearts:
         #self.passCards()
         #self.has2Clubs()
 
-    def dealCards(self):        #gets called when you start a new round
+    def dealCards(self):        
         for p in self.players:
             for i in range(13):
                 hand = p.playerHand()
@@ -56,7 +56,7 @@ class Hearts:
             if(p.computerOrNot() == False):
                 for i in range(3):
                     playerPassList = []
-                    playerPassList.append(p.pick_a_card('pass')) #how does this work still?
+                    playerPassList.append(p.pick_a_card('pass')) 
                     self.passingCards.append(playerPassList)
 
             elif(p.computerOrNot()):
@@ -89,10 +89,11 @@ class Hearts:
             else:
                 x = 'Card already played'
         
+            print(self.currentTrick.trickSuit())
             card = self.players[i].play(x, self.currentTrick.trickSuit())
             
             if(self.trickNum == 0):
-                while (card[1] == "Hearts" or (card[0] == 12 and card[1] == 'Spades')):
+                while (card[1] == "Hearts" or ((card[0] == 12 and card[1] == 'Spades'))):
                     self.players[i].reAdd(card)
                     card = self.players[i].play(x, self.currentTrick.trickSuit())
             if(not self.heartsBroken and self.currentTrick.cardsInTrick() == 0):
@@ -121,7 +122,7 @@ class Hearts:
                         s.resetTrickScore(0)
 
 
-    def scoringOfTrick(self):             #updates the score of the player who wins the round
+    def scoringOfTrick(self):             
         winner = self.players[self.currentTrick.winnerRound()]
         winner.winnings(self.currentTrick.pointsRound())
         self.trickWinner = self.currentTrick.winnerRound()
@@ -165,10 +166,10 @@ class Hearts:
         for s in self.players:
             scoringFile.write(str(s) + "\t")
 
-        while (highestScore < maxScore):    #makes sure you play to a 100 points
+        while (highestScore < maxScore):    
             self.newRound()
-            for r in range(totalTricks): # you play 13 tricks
-                self.playATrick() # This has to ask all players for a card, these are added to the trick list
+            for r in range(totalTricks): 
+                self.playATrick() 
                 self.scoringOfTrick()
             self.shootMoon()
             self.scoringOfRound()

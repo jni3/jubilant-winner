@@ -4,75 +4,76 @@ import random
 
 class Hand:
     def __init__(self):
-        self.clubs = []
-        self.diamonds = []
-        self.spades = []
-        self.hearts = []
+        self.Clubs = []
+        self.Diamonds = []
+        self.Spades = []
+        self.Hearts = []
 
-        self.hand = [self.clubs, self.diamonds, self.spades, self.hearts]
+        self.hand = [self.Clubs, self.Diamonds, self.Spades, self.Hearts]
 
     def __str__(self):
         return str(self.hand)
 
     def addToListbySuit(self, card):
         if(card.suit() == 'Clubs'):
-            self.clubs.append(card)
+            self.Clubs.append(card)
         elif(card.suit() == 'Spades'):
-            self.spades.append(card)
+            self.Spades.append(card)
         elif(card.suit() == 'Diamonds'):
-            self.diamonds.append(card)
+            self.Diamonds.append(card)
         elif(card.suit() == 'Hearts'):
-            self.hearts.append(card)
+            self.Hearts.append(card)
         else:
             print('Please input a valid card')
 
     def sortCardsbyRank(self):
         clubsRankList = []
-        for idx in self.clubs:
+        for idx in self.Clubs:
             clubsRankList.append((idx.rank(),idx.suit()))
         clubsRankList.sort()
-        self.clubs = clubsRankList
+        self.Clubs = clubsRankList
         
 
         spadesRankList = []
-        for idx in self.spades:
+        for idx in self.Spades:
             spadesRankList.append((idx.rank(), idx.suit()))
         spadesRankList.sort()
-        self.spades = spadesRankList
+        self.Spades = spadesRankList
 
         heartsRankList = []
-        for idx in self.hearts:
+        for idx in self.Hearts:
             heartsRankList.append((idx.rank(), idx.suit()))
         heartsRankList.sort()
-        self.hearts = heartsRankList
+        self.Hearts = heartsRankList
 
         diamondsRankList = []
-        for idx in self.diamonds:
+        for idx in self.Diamonds:
             diamondsRankList.append((idx.rank(),idx.suit()))
         diamondsRankList.sort()
-        self.diamonds = diamondsRankList
+        self.Diamonds = diamondsRankList
 
-        self.hand = [self.clubs, self.diamonds, self.spades, self.hearts]
+        self.hand = [self.Clubs, self.Diamonds, self.Spades, self.Hearts]
     
     def addCardsFromHand(self, card):
         if(card[1] == 'Clubs'):
-            self.clubs.append(card)
-            self.clubs.sort()
+            self.Clubs.append(card)
+            self.Clubs.sort()
         elif(card[1] == 'Spades'):
-            self.spades.append(card)
-            self.spades.sort()
+            self.Spades.append(card)
+            self.Spades.sort()
         elif(card[1] == 'Diamonds'):
-            self.diamonds.append(card)
-            self.diamonds.sort()
+            self.Diamonds.append(card)
+            self.Diamonds.sort()
         elif(card[1] == 'Hearts'):
-            self.hearts.append(card)
-            self.hearts.sort()
+            self.Hearts.append(card)
+            self.Hearts.sort()
         else:
             print('Please input a valid card')
+        
+        self.hand = [self.Clubs, self.Diamonds, self.Spades, self.Hearts]
 
-    #def getCardsinSuitlist(self, suit):
-        #want = self. + suit
-        #return want
+    def getCardsinSuitlist(self, suit):
+        return getattr(self, suit)
 
     def chooseRandomSuit(self):
         randomSuit = random.choice(self.hand)

@@ -17,7 +17,9 @@ class Player:
     def pick_a_card(self,action = 'play'):
        # while(True):
         card = input (self.name + ", pick a card to" + action + ":")
-        card = tuple(str(x) for x in card.split(','))
+        card = tuple(x for x in card.split(','))
+        card = (int(card[0]),card[1])
+        
            # if(self.hand[trickSuit[1]] != []):
             #    if(card[1] == trickSuit[0]):
         return card
@@ -37,50 +39,55 @@ class Player:
                         randomCard = self.hand.chooseRandomCard(randomSuit)
                         randomCard = randomSuit.pop(randomCard)
                         break
-                    except IndexError:      #Does this have to have same indentation
+                    except IndexError:     
                         print('Empty list, retrying until valid card')
 
                 return randomCard
 
             if(x == 'Card already played'):
-                randomTry = []
-                hand = list(self.hand)
+                randomTry = [0,0]
+                hand = self.hand
                 print(hand)
-                index = trickSuit[1]
-                if(hand[index] != []):
-                    while (randomTry[1] != trickSuit[0]): #Might break if index 1 is non existent
+                if(hand.getCardsinSuitlist(trickSuit[0]) != []):
+                    while (randomTry[1] != trickSuit[0]): 
                         try:
-                            randomTry = self.hand.choosePass(1)
-                            #randomSuit = self.hand.chooseRandomSuit()
-                            #randomCard = self.hand.chooseRandomCard(randomSuit)
-                            #randomTry = randomSuit[randomCard]
+                            randomSuit = self.hand.chooseRandomSuit()
+                            randomCard = self.hand.chooseRandomCard(randomSuit)
+                            randomTry = randomSuit[randomCard]
                         except IndexError:
-                            print('Empty list, retrying until valid card')
+                            print('Something went wrong, retrying until valid card')
                 else:
-                    while(randomTry == []):
+                    while(randomTry == [0,0]):
                         try:
-                            randomTry = self.hand.choosePass(1)
-                            #randomSuit = self.hand.chooseRandomSuit()
-                            #randomCard = self.hand.chooseRandomCard(randomSuit)
-                            #randomTry = randomSuit[randomCard]
+                            randomSuit = self.hand.chooseRandomSuit()
+                            randomCard = self.hand.chooseRandomCard(randomSuit)
+                            randomTry = randomSuit[randomCard]
                         except IndexError:
                             print('Empty list, retrying until valid card')
-                #randomCard = randomSuit.pop(randomCard)
-                return randomTry[0]
+                randomCard = randomSuit.pop(randomCard)
+                return randomCard
         else:
-            card = self.pick_a_card('play')
+            card = (0,0)
+            if(self.hand.getCardsinSuitlist(trickSuit[0]) != []):
+                while (card[1] != trickSuit[0]):
+                    card = self.pick_a_card('play')
+                    cardSuit = self.hand.getCardsinSuitlist(card[1])
+                    try:
+                        delete = cardSuit.remove(card)
+                    
+                    except:
+                        print('Please choose a card from your hand')
+                        card = (0,0)
+                    
+                    
             return card
-        #still need to figure out how player works.
-        #also, how would it work for picking matching suit and heartsbroken rules
-        #picking matching suit should be implemented in the pick a card function I think, the same way you did it for the computer
-        #Hearts broken should also just be a condition where you check if self.heartsbroken is True or False in both the computer player choosing and the player choosing
-
+        
     def reAdd(self, card):
         card = (int(card[0]),card[1])
         self.hand.addCardsFromHand(card)
 
     def winnings(self, points):
-        self.score += points #adds points to player's total after turn
+        self.score += points 
 
     def playerScore(self):
         return self.score
