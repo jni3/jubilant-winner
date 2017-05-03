@@ -28,25 +28,35 @@ class Hearts:
 
 
     def newRound(self):
-        deck = Deck.Deck() #every round generates a new deck
-	self.deck = deck.generateDeck()        
-	self.deck.shuffle()
+        self.deck = Deck.Deck() 
+        self.deck.generateDeck()        
+        self.deck.shuffle()
+        self.dealCards()
         self.roundNum += 1
         self.trickNum = 0
         for s in self.players:
             s.resetTrickScore(0)
         self.heartsBroken = False
-        self.dealCards()
+        
         self.passingCards = []
-        self.passCards()
-        self.has2Clubs()
+        #self.passCards()
+        #self.has2Clubs()
 
+    def dealCards(self):        #gets called when you start a new round
+        for p in self.players:
+            for i in range(13):
+                hand = p.playerHand()
+                hand.addToListbySuit(self.deck.deal())
+                
+            hand.sortCardsbyRank()
+            p.setHand(hand)
+   
     def passCards(self):
         for p in self.players:
             if(p.computerOrNot() == False):
                 for i in range(3):
                     playerPassList = []
-                    playerPassList.append(p.pick_a_card()) #how does this work still?
+                    playerPassList.append(p.pick_a_card('pass')) #how does this work still?
                     self.passingCards.append(playerPassList)
 
             elif(p.computerOrNot()):
@@ -55,23 +65,18 @@ class Hearts:
                 self.passingCards.append(listToPass)
 
         for i in range(len(self.players)):
-            j = (i + self.passes)%4
+            j = (i + self.passes[self.roundNum%4])%4
             for eachCard in self.passingCards[j]:
                  playerHand = self.players[i].playerHand()
-                 playerHand.addToListBySuit(eachCard)
-                 playerHand.sortCardsbyRank()
+                 playerHand.addCardsFromHand(eachCard)
                  self.players[i].setHand(playerHand)
 
-    def dealCards(self):        #gets called when you start a new round
-        for i in range(13):
-            for p in self.players:
-                hand = p.playerHand()
-                hand.addToListbySuit(self.deck.deal())
-                p.setHand(hand)
+    
 
     def has2Clubs(self):
         for i  in range(len(self.players)):
             hand = self.players[i].playerHand()
+            
             if((2, 'Clubs') in hand[0]):
                 self.trickWinner = i
 
@@ -83,9 +88,11 @@ class Hearts:
                 x = 'No card played'
             else:
                 x = 'Card already played'
+        
             card = self.players[i].play(x, self.currentTrick.trickSuit())
+            
             if(self.trickNum == 0):
-                while (card[1] == "Hearts" or (card[0] == 12 and card[1] == 'Spades'))
+                while (card[1] == "Hearts" or (card[0] == 12 and card[1] == 'Spades')):
                     self.players[i].reAdd(card)
                     card = self.players[i].play(x, self.currentTrick.trickSuit())
             if(not self.heartsBroken and self.currentTrick.cardsInTrick() == 0):
@@ -97,42 +104,49 @@ class Hearts:
             self.currentTrick.addCard(card, i)
             self.currentTrick.scorePoints(card)
             self.currentTrick.trickWinner(card, i)
+            
         self.trickNum +=1
 
     def shootMoon(self):
         shot = False
         for s in self.players:
-            if(s.trickScore() == 26):
-                print("You shot the moon!")
+            if(s.playerTrickScore() == 26):
+                print("You shot the moon!")           
                 shot = True
-        return shot
+        if(shot):
+            for s in self.players:
+                    if(s.trickScore != 26):
+                        s.resetTrickScore(26)
+                    else:
+                        s.resetTrickScore(0)
+
 
     def scoringOfTrick(self):             #updates the score of the player who wins the round
-        winner = self.players[self.currentTrick.winnerRound()
+        winner = self.players[self.currentTrick.winnerRound()]
         winner.winnings(self.currentTrick.pointsRound())
         self.trickWinner = self.currentTrick.winnerRound()
 
-    def scoringTotal(self):
-        highestScore = 0
-        lowestScore = 150
-        for p in self.players:
-            if(p.playerScore > highestScore):
-                loser = p
-                highestScore = p.playerScore
-            if(p.playerScore < lowestScore):
-                winner = p
-                lowestScore = p.playerScore
-            self.losingPlayer = loser
-            self.winningPlayer = winner
-        return highestScore
-
     def scoringOfRound(self):
+        scoringFile = open("Scores.txt", 'a')
         scores = "\n"
         for s in self.players:
             s.winnings(s.playerTrickScore())
             scores += str(s.playerScore()) + "\t"
         scoringFile.write(scores)
 
+    def scoringTotal(self):
+        highestScore = -1
+        lowestScore = 150
+        for p in self.players:
+            if(p.playerScore() > highestScore):
+                loser = p
+                highestScore = p.playerScore()
+            if(p.playerScore() < lowestScore):
+                winner = p
+                lowestScore = p.playerScore()
+            self.losingPlayer = loser
+            self.winningPlayer = winner
+        return highestScore
 
     def finalScore(self):
         scoringFile = open("Scores.txt", 'r').read()
@@ -149,20 +163,14 @@ class Hearts:
         highestScore = 0
         scoringFile = open("Scores.txt", 'w')
         for s in self.players:
-            scoringFile.write(s + "\t")
+            scoringFile.write(str(s) + "\t")
 
         while (highestScore < maxScore):    #makes sure you play to a 100 points
             self.newRound()
             for r in range(totalTricks): # you play 13 tricks
                 self.playATrick() # This has to ask all players for a card, these are added to the trick list
                 self.scoringOfTrick()
-            if(self.shootMoon()):
-                players = self.participants()
-                for s in self.players:
-                    if(s.trickScore != 26):
-                        s.resetTrickScore(26)
-                    else:
-                        s.resetTrickScore(0)
+            self.shootMoon()
             self.scoringOfRound()
             highestScore = self.scoringTotal()
         
@@ -170,9 +178,9 @@ class Hearts:
         self.finalScore()
         
 
-def main():
-    game = HeartsFinalProject.Hearts()
-    game.playGame()
-main()
+#def main():
+#    game = Hearts()
+#    game.playGame()
+#main()
 
 

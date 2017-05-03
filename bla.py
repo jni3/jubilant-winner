@@ -31,23 +31,48 @@ class Hand:
         for idx in self.clubs:
             clubsRankList.append((idx.rank(),idx.suit()))
         clubsRankList.sort()
+        self.clubs = clubsRankList
+        
 
         spadesRankList = []
         for idx in self.spades:
             spadesRankList.append((idx.rank(), idx.suit()))
         spadesRankList.sort()
+        self.spades = spadesRankList
 
         heartsRankList = []
         for idx in self.hearts:
             heartsRankList.append((idx.rank(), idx.suit()))
         heartsRankList.sort()
+        self.hearts = heartsRankList
 
         diamondsRankList = []
         for idx in self.diamonds:
             diamondsRankList.append((idx.rank(),idx.suit()))
         diamondsRankList.sort()
+        self.diamonds = diamondsRankList
 
-        self.hand = [clubsRankList, diamondsRankList, spadesRankList, heartsRankList]
+        self.hand = [self.clubs, self.diamonds, self.spades, self.hearts]
+    
+    def addCardsFromHand(self, card):
+        if(card[1] == 'Clubs'):
+            self.clubs.append(card)
+            self.clubs.sort()
+        elif(card[1] == 'Spades'):
+            self.spades.append(card)
+            self.spades.sort()
+        elif(card[1] == 'Diamonds'):
+            self.diamonds.append(card)
+            self.diamonds.sort()
+        elif(card[1] == 'Hearts'):
+            self.hearts.append(card)
+            self.hearts.sort()
+        else:
+            print('Please input a valid card')
+
+    #def getCardsinSuitlist(self, suit):
+        #want = self. + suit
+        #return want
 
     def chooseRandomSuit(self):
         randomSuit = random.choice(self.hand)

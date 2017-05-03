@@ -4,7 +4,9 @@ import bla
 import Playerclass
 import Trick
 from PIL import Image
+from HeartsFinalProject import Hearts
 
+#You can't index into the hand to get a list of 1 specific suit, but multiple function rely on this. We should try to fix that
 
 def main():
 	print("=====Deck test=====")	
@@ -42,6 +44,8 @@ def main():
 		
 	hand.sortCardsbyRank()
 	print(hand)
+	#smallHand = hand.getCardsinSuitlist('clubs')
+	#print(smallHand)
 
 	print("======Pass cards=====")
 	print(hand.choosePass(3))
@@ -67,7 +71,7 @@ def main():
 	print("Players hand: ", player2.playerHand())
 	player2.setHand(hand)
 	print("Players hand: ", player2.playerHand())
-	player2.reAdd(card2)
+	player2.reAdd((5,'Hearts'))
 	print("Players hand: ", player2.playerHand())
 	print("Player is a computer: ", player1.computerOrNot())
 
@@ -101,6 +105,30 @@ def main():
 
 	print("Player ", trick.winnerRound(), " won this round")
 	print("and he scored ", trick.pointsRound(), " points")
+
+	print("=====Game test=====")
+	game = Hearts()
+	game.newRound()
+	players = game.participants()
+	for p in players:
+		print(p.name)
+		print(p.hand)
+		#game.playATrick()
+
+	print("---Shooting the moon---")	
+	players[0].resetTrickScore(26)
+	for p in players:	
+		print(p.playerTrickScore())
+	game.shootMoon()
+	for p in players:
+		print(p.playerTrickScore())
+
+	print("---Scoring---")
+	game.scoringOfTrick()
+	game.scoringOfRound()
+	game.scoringTotal()
+	game.finalScore()
+	
 main()
 
 
