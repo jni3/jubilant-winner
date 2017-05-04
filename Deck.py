@@ -6,8 +6,7 @@ class Deck:
 		self.cardList = []
 		
 		
-	def __str__(self):
-			
+	def __str__(self):	
 		deckStr = ''
 		for card in self.cardList:
 			deckStr += card.__str__() + ','
