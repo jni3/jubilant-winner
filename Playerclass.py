@@ -15,21 +15,13 @@ class Player:
         return self.name
 
     def pick_a_card(self,action = 'play'):
-       # while(True):
+       
         card = input (self.name + ", pick a card to" + action + ":")
         card = tuple(x for x in card.split(','))
         card = (int(card[0]),card[1])
         
-           # if(self.hand[trickSuit[1]] != []):
-            #    if(card[1] == trickSuit[0]):
         return card
-                #else:
-                 #   print("You have to play the asked suit, try again!")
-           # else:
-                #return card
-        #allows players to pick a card to play
-                    #how does this work?
-
+                
     def play(self, x, trickSuit, action = 'play'):
         if(self.computer):
             if(x == 'No card played'):
