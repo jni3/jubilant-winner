@@ -33,7 +33,6 @@ class Hand:
         clubsRankList.sort()
         self.Clubs = clubsRankList
         
-
         spadesRankList = []
         for idx in self.Spades:
             spadesRankList.append((idx.rank(), idx.suit()))
