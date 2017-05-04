@@ -28,19 +28,22 @@ class Hearts:
 
 
     def newRound(self):
+        print("New Round")
         self.deck = Deck.Deck() 
         self.deck.generateDeck()        
         self.deck.shuffle()
+        for s in self.players:
+            s.resetTrickScore(0)
+            s.hand.emptyHand()
         self.dealCards()
         self.roundNum += 1
         self.trickNum = 0
-        for s in self.players:
-            s.resetTrickScore(0)
+        
         self.heartsBroken = False
         
         self.passingCards = []
-        #self.passCards()
-        #self.has2Clubs()
+        self.passCards()
+        self.has2Clubs()
 
     def dealCards(self):        
         for p in self.players:
@@ -54,16 +57,29 @@ class Hearts:
     def passCards(self):
         for p in self.players:
             if(p.computerOrNot() == False):
+                print(p.playerHand())
+                playerPassList = []
                 for i in range(3):
-                    playerPassList = []
-                    playerPassList.append(p.pick_a_card('pass')) 
-                    self.passingCards.append(playerPassList)
+                    
+                    passCard = (0,0)
+                    while(passCard == (0,0)):
+                        passCard = p.pick_a_card('pass')
+                        cardSuit = p.hand.getCardsinSuitlist(passCard[1])
+                        try:
+                            cardSuit.remove(passCard)
+                            
+                    
+                        except:
+                            print('Please choose a card from your hand')
+                            passCard = (0,0)
+                    playerPassList.append(passCard) 
+                self.passingCards.append(playerPassList)
 
             elif(p.computerOrNot()):
                 hand = p.playerHand()
                 listToPass = hand.choosePass(3)
                 self.passingCards.append(listToPass)
-
+       
         for i in range(len(self.players)):
             j = (i + self.passes[self.roundNum%4])%4
             for eachCard in self.passingCards[j]:
@@ -76,9 +92,11 @@ class Hearts:
     def has2Clubs(self):
         for i  in range(len(self.players)):
             hand = self.players[i].playerHand()
+            clubsHand = hand.getCardsinSuitlist('Clubs')
             
-            if((2, 'Clubs') in hand[0]):
+            if((2, 'Clubs') in clubsHand):
                 self.trickWinner = i
+        print(self.trickWinner)
 
     def playATrick(self):
         self.currentTrick = Trick.Trick()
@@ -90,6 +108,7 @@ class Hearts:
                 x = 'Card already played'
         
             print(self.currentTrick.trickSuit())
+            print("Cards currently in the trick:\n", self.currentTrick)
             card = self.players[i].play(x, self.currentTrick.trickSuit())
             
             if(self.trickNum == 0):
@@ -98,7 +117,7 @@ class Hearts:
                     card = self.players[i].play(x, self.currentTrick.trickSuit())
             if(not self.heartsBroken and self.currentTrick.cardsInTrick() == 0):
                 while(card[1] == "Hearts"):
-                    self.players[i].readd(card)
+                    self.players[i].reAdd(card)
                     card = self.players[i].play(x, self.currentTrick.trickSuit())
             if(card[1] == "Hearts"):
                 self.heartsBroken = True
@@ -171,6 +190,9 @@ class Hearts:
             for r in range(totalTricks): 
                 self.playATrick() 
                 self.scoringOfTrick()
+                print(self.currentTrick)
+                print(self.currentTrick.winnerRound(), "won the round")
+                print('got', self.currentTrick.pointsRound(), 'points')
             self.shootMoon()
             self.scoringOfRound()
             highestScore = self.scoringTotal()

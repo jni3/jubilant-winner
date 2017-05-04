@@ -74,6 +74,13 @@ class Hand:
 
     def getCardsinSuitlist(self, suit):
         return getattr(self, suit)
+    
+    def emptyHand(self):
+        self.Clubs = []
+        self.Hearts = []
+        self.Spades = []
+        self.Diamonds = []
+        self.hand = []
 
     def chooseRandomSuit(self):
         randomSuit = random.choice(self.hand)

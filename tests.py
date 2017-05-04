@@ -34,13 +34,16 @@ def main():
 #	image2.show()
 	
 	print("=====Hand test=====")
-	hand = bla.Hand()	
+	hand = bla.Hand()
+		
 	for i in range(13):
 		dealtest = deck.deal()
 		print(dealtest)
 		hand.addToListbySuit(dealtest)
 		
+		
 	hand.sortCardsbyRank()
+	
 	print(hand)
 	smallHand = hand.getCardsinSuitlist('Clubs')
 	print(smallHand)
@@ -70,7 +73,7 @@ def main():
 	player2.setHand(hand)
 	print("Players hand: ", player2.playerHand())
 	player2.reAdd((5,'Hearts'))
-	print("Players hand: ", player2.playerHand())
+	print("Players hand: ", player2.playerHand())	
 	print("Player is a computer: ", player1.computerOrNot())
 
 	print("=====Computer plays a card=====")
@@ -131,6 +134,9 @@ def main():
 	game.scoringOfRound()
 	game.scoringTotal()
 	game.finalScore()
+
+	print("\n\n\n=====The actual game=====")
+	game.playGame()
 	
 main()
 

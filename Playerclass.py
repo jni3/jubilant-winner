@@ -30,7 +30,7 @@ class Player:
         #allows players to pick a card to play
                     #how does this work?
 
-    def play(self, x, trickSuit,action = 'play'):
+    def play(self, x, trickSuit, action = 'play'):
         if(self.computer):
             if(x == 'No card played'):
                 while(True):
@@ -68,12 +68,36 @@ class Player:
                 return randomCard
         else:
             card = (0,0)
-            if(self.hand.getCardsinSuitlist(trickSuit[0]) != []):
-                while (card[1] != trickSuit[0]):
+            print("Choose from your hand:\n", self.hand)
+            
+            print(trickSuit)
+            print(trickSuit[0])
+            if(x == 'No card played'):
+                card = self.pick_a_card('play')
+                cardSuit = self.hand.getCardsinSuitlist(card[1])
+                try:
+                    cardSuit.remove(card)
+                    
+                except:
+                    print('Please choose a card from your hand')
+                    card = (0,0)
+
+            if(x == 'Card already played'):
+                if(self.hand.getCardsinSuitlist(trickSuit[0]) != []):
+                    while (card[1] != trickSuit[0]):
+                        card = self.pick_a_card('play')
+                        cardSuit = self.hand.getCardsinSuitlist(card[1])
+                        try:
+                            cardSuit.remove(card)
+                    
+                        except:
+                            print('Please choose a card from your hand')
+                            card = (0,0)
+                else:
                     card = self.pick_a_card('play')
                     cardSuit = self.hand.getCardsinSuitlist(card[1])
                     try:
-                        delete = cardSuit.remove(card)
+                        cardSuit.remove(card)
                     
                     except:
                         print('Please choose a card from your hand')
