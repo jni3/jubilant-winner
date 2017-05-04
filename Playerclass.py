@@ -63,7 +63,6 @@ class Player:
             print("Choose from your hand:\n", self.hand)
             
             print(trickSuit)
-            print(trickSuit[0])
             if(x == 'No card played'):
                 card = self.pick_a_card('play')
                 cardSuit = self.hand.getCardsinSuitlist(card[1])
