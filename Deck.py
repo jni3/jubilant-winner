@@ -2,6 +2,7 @@ from Cards import Cards
 import random
 
 class Deck:
+	"""Noortje, creates a list of 52 cards which can be shuffled and dealt"""
 	def __init__(self):
 		self.cardList = []
 		
