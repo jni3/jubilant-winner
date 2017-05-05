@@ -1,7 +1,8 @@
 from PIL import Image
 
 class Cards:
-
+	"""Noortje, creates Card objects"""
+	
 	def __init__(self,PointValue_in,Suit_in):
 		self.PointValue = PointValue_in
 		self.Suit = Suit_in
