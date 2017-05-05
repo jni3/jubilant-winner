@@ -4,6 +4,7 @@ import Cards
 import Trick
 
 class Player:
+    """Ji, Noortje, generates a player"""
     def __init__(self, name, computer = True):
         self.name = name
         self.hand = Hand()
@@ -14,6 +15,7 @@ class Player:
     def __str__(self):
         return self.name
 
+    """Lets the player pick a card from their hand"""
     def pick_a_card(self,action = 'play'):
        
         card = input (self.name + ", pick a card to" + action + ":")
@@ -21,7 +23,8 @@ class Player:
         card = (int(card[0]),card[1])
         
         return card
-                
+    
+    """Lets a player do their turn, for a computer a card is randomnly selected an actual player gets to pick a card with the pick_a_card function"""
     def play(self, x, trickSuit, action = 'play'):
         if(self.computer):
             if(x == 'No card played'):
@@ -96,7 +99,8 @@ class Player:
                     
                     
             return card
-        
+    
+    """Readds a card if a player plays an invalid card"""
     def reAdd(self, card):
         card = (int(card[0]),card[1])
         self.hand.addCardsFromHand(card)
