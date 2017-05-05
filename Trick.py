@@ -4,6 +4,7 @@ import Playerclass
 import Cards
 
 class Trick:
+    """Noortje, generates a trick to which cards can be added and evaluates who won the trick"""
     def __init__(self):
         self.trick = []
         self.suit = -1
