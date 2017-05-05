@@ -3,6 +3,7 @@ import Deck
 import random
 
 class Hand:
+    """Jason, Noortje, holds the hand of a player"""
     def __init__(self):
         self.Clubs = []
         self.Diamonds = []
@@ -14,6 +15,7 @@ class Hand:
     def __str__(self):
         return str(self.hand)
 
+    """Sorts the cards in the hand of the player (3 functions)"""
     def addToListbySuit(self, card):
         if(card.suit() == 'Clubs'):
             self.Clubs.append(card)
@@ -81,6 +83,7 @@ class Hand:
         self.Diamonds = []
         self.hand = []
 
+    """If the player is a computer, these 3 functions randomnly choose a card for the computer"""
     def chooseRandomSuit(self):
         randomSuit = random.choice(self.hand)
         return randomSuit
