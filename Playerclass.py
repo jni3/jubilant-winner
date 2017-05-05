@@ -4,7 +4,7 @@ import Cards
 import Trick
 
 class Player:
-    """Ji, Noortje, generates a player"""
+    """Ji, Noortje, Jason, generates a player"""
     def __init__(self, name, computer = True):
         self.name = name
         self.hand = Hand()
