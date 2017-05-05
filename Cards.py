@@ -1,13 +1,16 @@
-from PIL import Image
+import pygame
 
-class Cards:
+class Cards(pygame.sprite.Sprite):
 
 	def __init__(self,PointValue_in,Suit_in):
+                super.__init__(self)
 		self.PointValue = PointValue_in
 		self.Suit = Suit_in
 		name = str(PointValue_in) + "_of_" + Suit_in.lower()+ ".png"
-		self.picture = Image.open("Allcards/"+name)
-
+		self.image = pygame.image.load(image_name)
+		self.rect = self.image.get_rect()		
+                self.isUp = False
+		
 	def __str__(self):
 		return str(self.PointValue) + " of " + self.Suit
 
@@ -17,5 +20,27 @@ class Cards:
 	def suit(self):
 		return self.Suit
 
-	def getImage(self):
-		return self.picture
+	def getSurfImage(self):
+		return self.image
+
+	def getSurfRect(self):
+                return self.rect
+
+	def setXCoord(self, xCoord):
+                self.rect.x = xCoord
+                
+        def setYCoord(self, yCoord):
+                self.rect.y = yCoord
+                
+        def getXCoord(self):
+                return self.rect.x
+
+        def getYCoord(self):
+                return self.rect.y
+
+        def liftUp(self):
+                return self.isUp
+
+        def changeUpOrDown(self, TrueOrFalse):
+                self.isUp = TrueOrFalse
+                

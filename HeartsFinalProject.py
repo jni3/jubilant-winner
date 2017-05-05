@@ -3,7 +3,7 @@ import Deck
 from Playerclass import Player
 import bla
 import Trick
-
+import View
 
 """Some variables used throughout the program"""
 totalTricks = 13
@@ -59,11 +59,9 @@ class Hearts:
             if(p.computerOrNot() == False):
                 print(p.playerHand())
                 playerPassList = []
-                for i in range(3):
-                    
                     passCard = (0,0)
                     while(passCard == (0,0)):
-                        passCard = p.pick_a_card('pass')
+                        passCard = p.selectCard()
                         cardSuit = p.hand.getCardsinSuitlist(passCard[1])
                         try:
                             cardSuit.remove(passCard)
@@ -110,7 +108,7 @@ class Hearts:
             print(self.currentTrick.trickSuit())
             print("Cards currently in the trick:\n", self.currentTrick)
             card = self.players[i].play(x, self.currentTrick.trickSuit())
-            
+            View.updatecardLocation(card)
             if(self.trickNum == 0):
                 while (card[1] == "Hearts" or ((card[0] == 12 and card[1] == 'Spades'))):
                     self.players[i].reAdd(card)
@@ -184,21 +182,54 @@ class Hearts:
         scoringFile = open("Scores.txt", 'w')
         for s in self.players:
             scoringFile.write(str(s) + "\t")
+ 
+        gameExit = False
+        gameStart = False
+        passingCards = False
+        gameDisplay.fill(white) 
+        gameDisplay.blit(Background.image, Background.rect)
+        while(not gameExit):
+            while (highestScore < maxScore): 
+                while(gameStart == False):
+                        pressedOrNot = View.dealButton("DEAL!", display_width/2, display_height/2, 125, 50, red, bright_red)  
+                        pygame.display.update() 
+                        gameStart = pressedOrNot
 
-        while (highestScore < maxScore):    
-            self.newRound()
-            for r in range(totalTricks): 
-                self.playATrick() 
-                self.scoringOfTrick()
-                print(self.currentTrick)
-                print(self.currentTrick.winnerRound(), "won the round")
-                print('got', self.currentTrick.pointsRound(), 'points')
-            self.shootMoon()
-            self.scoringOfRound()
-            highestScore = self.scoringTotal()
-        
-        scoringFile.close()
-        self.finalScore()
+                        for event in pygame.event.get(): 
+                            if event.type == pygame.QUIT:
+                                gameExit = True
+                                gameStart = True
+                                passingCards = True
+                               
+                while(passingCards == False): 
+                     passedCards = choosePassCards()
+                     pressedOrNot = passButton("Pass Left!", display_width/2, display_height/2, 125, 50, green, bright_green, passedCards)
+                     pygame.display.update()
+                     passingCards = pressedOrNot
+
+                     for event in pygame.event.get(): 
+                            if event.type == pygame.QUIT:
+                                gameExit = True
+                                passingCards = True
+
+                    for r in range(totalTricks): 
+                        self.playATrick() 
+                        self.scoringOfTrick()
+                        print(self.currentTrick)
+                        print(self.currentTrick.winnerRound(), "won the round")
+                        print('got', self.currentTrick.pointsRound(), 'points')
+
+                    self.shootMoon()
+                    self.scoringOfRound()
+                    highestScore = self.scoringTotal()
+
+                    for event in pygame.event.get(): 
+                            if event.type == pygame.QUIT:
+                                gameExit = True
+                                passingCards = True
+                
+                scoringFile.close()
+                self.finalScore()
         
 
 #def main():

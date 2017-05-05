@@ -2,6 +2,7 @@ from bla import Hand
 import random
 import Cards
 import Trick
+import pygame
 
 class Player:
     def __init__(self, name, computer = True):
@@ -10,26 +11,20 @@ class Player:
         self.score = 0
         self.computer = computer
         self.trickScore = 0
-
+        self.removedCard = None
+        
     def __str__(self):
         return self.name
 
-    def pick_a_card(self,action = 'play'):
-       # while(True):
-        card = input (self.name + ", pick a card to" + action + ":")
-        card = tuple(x for x in card.split(','))
-        card = (int(card[0]),card[1])
-        
-           # if(self.hand[trickSuit[1]] != []):
-            #    if(card[1] == trickSuit[0]):
+    def selectCard(self):
+        gotCard = False
+        while gotCard == False:
+            pygame.mouse.get_pressed()
+            for card in self.hand:
+                if card.getSurfRect.collidepoint(pygame.mouse_get_pos()) and click[0] == 1:
+                    gotCard = True
         return card
-                #else:
-                 #   print("You have to play the asked suit, try again!")
-           # else:
-                #return card
-        #allows players to pick a card to play
-                    #how does this work?
-
+    
     def play(self, x, trickSuit, action = 'play'):
         if(self.computer):
             if(x == 'No card played'):
@@ -41,7 +36,7 @@ class Player:
                         break
                     except IndexError:     
                         print('Empty list, retrying until valid card')
-
+                self.removedCard = randomCard
                 return randomCard
 
             if(x == 'Card already played'):
@@ -65,6 +60,7 @@ class Player:
                         except IndexError:
                             print('Empty list, retrying until valid card')
                 randomCard = randomSuit.pop(randomCard)
+                self.removedCard = randomCard
                 return randomCard
         else:
             card = (0,0)
@@ -73,7 +69,7 @@ class Player:
             print(trickSuit)
             print(trickSuit[0])
             if(x == 'No card played'):
-                card = self.pick_a_card('play')
+                card = self.selectCard()
                 cardSuit = self.hand.getCardsinSuitlist(card[1])
                 try:
                     cardSuit.remove(card)
@@ -85,7 +81,7 @@ class Player:
             if(x == 'Card already played'):
                 if(self.hand.getCardsinSuitlist(trickSuit[0]) != []):
                     while (card[1] != trickSuit[0]):
-                        card = self.pick_a_card('play')
+                        card = self.selectCard()
                         cardSuit = self.hand.getCardsinSuitlist(card[1])
                         try:
                             cardSuit.remove(card)
@@ -94,7 +90,7 @@ class Player:
                             print('Please choose a card from your hand')
                             card = (0,0)
                 else:
-                    card = self.pick_a_card('play')
+                    card = self.selectCard()
                     cardSuit = self.hand.getCardsinSuitlist(card[1])
                     try:
                         cardSuit.remove(card)
@@ -103,7 +99,7 @@ class Player:
                         print('Please choose a card from your hand')
                         card = (0,0)
                     
-                    
+            self.removedCard = card
             return card
         
     def reAdd(self, card):
@@ -133,4 +129,7 @@ class Player:
 
     def playerTrickScore(self):
         return self.trickScore
+
+    def removedCard(self):
+        return self.removedCard
 
