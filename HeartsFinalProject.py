@@ -11,6 +11,7 @@ maxScore = 100
 cardsToPass = 3
 
 class Hearts:
+    """Noortje, Jason, generates a game"""
     def __init__(self):
         self.roundNum = 0
         self.trickNum = 0
@@ -26,7 +27,7 @@ class Hearts:
         name = input("Please enter your name: ")
         self.players = [Player(name, False), Player("John"), Player("Mary"), Player("Joey")]
 
-
+    """Calls a new round and resets values"""
     def newRound(self):
         print("New Round")
         self.deck = Deck.Deck() 
@@ -54,6 +55,7 @@ class Hearts:
             hand.sortCardsbyRank()
             p.setHand(hand)
    
+    """Handles the passing of 3 cards to an opponent at the beginning of each round"""
     def passCards(self):
         for p in self.players:
             if(p.computerOrNot() == False):
@@ -87,8 +89,7 @@ class Hearts:
                  playerHand.addCardsFromHand(eachCard)
                  self.players[i].setHand(playerHand)
 
-    
-
+    """Checks which player has the 2 of clubs at the beginning of a round and lets that player start the first trick"""
     def has2Clubs(self):
         for i  in range(len(self.players)):
             hand = self.players[i].playerHand()
@@ -98,6 +99,7 @@ class Hearts:
                 self.trickWinner = i
         print(self.trickWinner)
 
+    """Calls a new trick and lets all the players play a card. It also checks if the card that is being played is valid"""
     def playATrick(self):
         self.currentTrick = Trick.Trick()
         for i in range(self.trickWinner, self.trickWinner+len(self.players)):
@@ -127,6 +129,7 @@ class Hearts:
             
         self.trickNum +=1
 
+    """After each round, checks if somebody collected all 26 points and shot the moon. And subsequently resets the scores of the trick for all players if it happened"""
     def shootMoon(self):
         shot = False
         for s in self.players:
@@ -140,7 +143,7 @@ class Hearts:
                     else:
                         s.resetTrickScore(0)
 
-
+    """Four functions that keep track of all the scored points. The points scored in a trick, a round and the total score of the players is being monitored"""
     def scoringOfTrick(self):             
         winner = self.players[self.currentTrick.winnerRound()]
         winner.winnings(self.currentTrick.pointsRound())
@@ -179,6 +182,7 @@ class Hearts:
     def participants(self):
         return self.players
 
+    """Is the function that actually starts the game"""
     def playGame(self):
         highestScore = 0
         scoringFile = open("Scores.txt", 'w')
